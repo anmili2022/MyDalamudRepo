@@ -1,0 +1,21 @@
+[
+  {
+    "Author": "anmili2022",
+    "Name": "DalamudACT",
+    "InternalName": "DalamudACT",
+    "AssemblyVersion": "1.0.0.0",
+    "Description": "DalamudACT 插件。",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/DalamudACT",
+    "Tags": [
+      "utility"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadPriority": 0,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/icons/dalamudact.png",
+    "Punchline": "DalamudACT",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.0/DalamudACT.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.0/DalamudACT.zip"
+  }
+]
