@@ -69,6 +69,19 @@ $trackedPlugins = @(
         }
     },
     @{
+        Repo = "anmili2022/EzWondrousTails"
+        InternalName = "WondrousTailsSolver"
+        ManifestKind = "releaseAssetJson"
+        ManifestAssetPattern = "WondrousTailsSolver.json"
+        ZipAssetPattern = "latest.zip"
+        IconUrl = "https://raw.githubusercontent.com/anmili2022/EzWondrousTails/main/res/icon.png"
+        Overrides = @{
+            Name = "天书概率助手"
+            Punchline = "在天书界面实时显示连线概率。 Adds row probabilities to the Wondrous Tails display."
+            Description = "在天书界面实时显示 1 线、2 线、3 线概率，并提供重排后的平均参考。 This plugin prints the probability of getting a row in Wondrous Tails to the in-game display along with the average probability of what would happen if you shuffled."
+        }
+    },
+    @{
         Repo = "anmili2022/DalamudACT"
         InternalName = "DalamudACT"
         ManifestKind = "repoJson"

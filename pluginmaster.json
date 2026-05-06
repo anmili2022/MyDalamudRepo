@@ -116,5 +116,29 @@
     "AcceptsFeedback": true,
     "DownloadLinkInstall": "https://github.com/anmili2022/StarlightBreaker/releases/download/v2.15.0/StarlightBreaker-v2.15.0.zip",
     "DownloadLinkUpdate": "https://github.com/anmili2022/StarlightBreaker/releases/download/v2.15.0/StarlightBreaker-v2.15.0.zip"
+  },
+  {
+    "Author": "daemitus, MidoriKami",
+    "Name": "天书概率助手",
+    "InternalName": "WondrousTailsSolver",
+    "AssemblyVersion": "3.2.2.6",
+    "Description": "在天书界面实时显示 1 线、2 线、3 线概率，并提供重排后的平均参考。 This plugin prints the probability of getting a row in Wondrous Tails to the in-game display along with the average probability of what would happen if you shuffled.",
+    "Punchline": "在天书界面实时显示连线概率。 Adds row probabilities to the Wondrous Tails display.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/EzWondrousTails",
+    "Tags": [
+      "wondrous-tails",
+      "probability",
+      "utility"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/EzWondrousTails/main/res/icon.png",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/packages/WondrousTailsSolver-3.2.2.6.zip",
+    "DownloadLinkUpdate": "https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/packages/WondrousTailsSolver-3.2.2.6.zip"
   }
 ]
