@@ -173,12 +173,7 @@ function ConvertTo-PlainData {
     }
 
     if ($InputObject -is [System.Collections.IEnumerable] -and -not ($InputObject -is [string])) {
-        $items = New-Object System.Collections.Generic.List[object]
-        foreach ($item in $InputObject) {
-            $items.Add((ConvertTo-PlainData -InputObject $item))
-        }
-
-        return @($items)
+        return ,(@($InputObject | ForEach-Object { ConvertTo-PlainData -InputObject $_ }))
     }
 
     $properties = @($InputObject.PSObject.Properties)
@@ -203,6 +198,48 @@ function Invoke-GitHubJsonApi {
     return Invoke-RestMethod -Headers $githubHeaders -Uri $Uri
 }
 
+function Get-LatestReleaseFromHtml {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string] $Repo
+    )
+
+    $releasePage = Invoke-WebRequest -Headers $githubHeaders -Uri "https://github.com/$Repo/releases/latest" -MaximumRedirection 10
+    $releaseUri = [string]$releasePage.BaseResponse.ResponseUri.AbsoluteUri
+
+    if ($releaseUri -notmatch '/releases/tag/(?<tag>[^/?#]+)') {
+        throw "Unable to determine the latest release tag for $Repo from '$releaseUri'."
+    }
+
+    $tagName = [System.Uri]::UnescapeDataString($Matches.tag)
+    $assetsHtml = Get-TextFromUrl -Uri "https://github.com/$Repo/releases/expanded_assets/$tagName"
+    $assetPattern = 'href="(?<href>' + [regex]::Escape("/$Repo/releases/download/") + '[^"]+)"'
+    $assetMatches = [regex]::Matches($assetsHtml, $assetPattern)
+    $assets = New-Object System.Collections.Generic.List[object]
+    $seenAssetNames = @{}
+
+    foreach ($match in $assetMatches) {
+        $href = [string]$match.Groups["href"].Value
+        $downloadUrl = "https://github.com$href"
+        $assetName = [System.Uri]::UnescapeDataString([System.IO.Path]::GetFileName($downloadUrl))
+
+        if ($seenAssetNames.ContainsKey($assetName)) {
+            continue
+        }
+
+        $seenAssetNames[$assetName] = $true
+        $assets.Add([pscustomobject]@{
+            name = $assetName
+            browser_download_url = $downloadUrl
+        })
+    }
+
+    return [pscustomobject]@{
+        tag_name = $tagName
+        assets = ,(@($assets | ForEach-Object { $_ }))
+    }
+}
+
 function Get-LatestRelease {
     param(
         [Parameter(Mandatory = $true)]
@@ -216,6 +253,11 @@ function Get-LatestRelease {
         $statusCode = Get-StatusCode -ErrorRecord $_
         if ($statusCode -eq 404) {
             return $null
+        }
+
+        if ($statusCode -eq 403) {
+            Write-Warning "GitHub API rate-limited for $Repo; falling back to release page parsing."
+            return Get-LatestReleaseFromHtml -Repo $Repo
         }
 
         throw
@@ -262,9 +304,12 @@ function Get-RawContentWithFallback {
         [string] $Path
     )
 
-    $refs = @($PreferredRef, (Get-DefaultBranch -Repo $Repo)) | Select-Object -Unique
+    $refsTried = New-Object System.Collections.Generic.List[string]
+    $refsToTry = New-Object System.Collections.Generic.List[string]
+    $refsToTry.Add($PreferredRef)
 
-    foreach ($ref in $refs) {
+    foreach ($ref in $refsToTry) {
+        $refsTried.Add($ref)
         $uri = "https://raw.githubusercontent.com/$Repo/$ref/$Path"
         try {
             return Get-TextFromUrl -Uri $uri
@@ -279,7 +324,22 @@ function Get-RawContentWithFallback {
         }
     }
 
-    throw "Unable to fetch '$Path' from $Repo using refs: $($refs -join ', ')."
+    $defaultBranch = Get-DefaultBranch -Repo $Repo
+    if ($defaultBranch -ne $PreferredRef) {
+        $refsTried.Add($defaultBranch)
+        $uri = "https://raw.githubusercontent.com/$Repo/$defaultBranch/$Path"
+        try {
+            return Get-TextFromUrl -Uri $uri
+        }
+        catch {
+            $statusCode = Get-StatusCode -ErrorRecord $_
+            if ($statusCode -ne 404) {
+                throw
+            }
+        }
+    }
+
+    throw "Unable to fetch '$Path' from $Repo using refs: $($refsTried -join ', ')."
 }
 
 function ConvertFrom-SimpleYamlManifest {

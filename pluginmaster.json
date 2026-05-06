@@ -3,7 +3,7 @@
     "Author": "wozaiha",
     "Name": "DalamudACT",
     "InternalName": "DalamudACT",
-    "AssemblyVersion": "0.15.2.3",
+    "AssemblyVersion": "0.15.2.5",
     "Description": "一个基于本地 ACTX 风格口径的 Dalamud 战斗统计插件，直接在游戏内显示队伍 DPS、HPS、承伤、概览和战斗历史，不依赖外部网页悬浮窗。 Local ACTX-style combat meter for Dalamud. Displays party DPS, HPS, damage taken, overview summaries, and encounter history directly in game without relying on an external web overlay.",
     "Punchline": "在游戏内直接查看 ACTX 风格战斗统计。 Local ACTX-style combat stats directly inside the game.",
     "ApplicableVersion": "any",
@@ -28,8 +28,8 @@
     "IconUrl": "https://github.com/anmili2022/DalamudACT/raw/master/DalamudACT/images/icon.png",
     "ImageUrls": [],
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.3/DalamudACT.zip",
-    "DownloadLinkUpdate": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.3/DalamudACT.zip"
+    "DownloadLinkInstall": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.5/DalamudACT.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.5/DalamudACT.zip"
   },
   {
     "Author": "Shiyuvi",
@@ -59,7 +59,7 @@
     "Author": "shdwp, Avaflow, abashby, nebel",
     "Name": "Party Icons",
     "InternalName": "PartyIcons",
-    "AssemblyVersion": "1.2.3.6",
+    "AssemblyVersion": "1.2.3.7",
     "Description": "按当前内容调整玩家名牌显示，例如显示职业图标、自动分配的团队站位，或名字加职业图标。 Adjusts player nameplates based on current content, for example by showing job icons, automatically assigned raid positions, or names with job icons.",
     "Punchline": "用职业图标、团队站位等替换队友名字显示。 Replace names with job icons, raid role positions, and more.",
     "ApplicableVersion": "any",
@@ -74,8 +74,8 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/anmili2022/xivPartyIcons/main/PartyIcons/Resources/icon.png",
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.6/PartyIcons.zip",
-    "DownloadLinkUpdate": "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.6/PartyIcons.zip"
+    "DownloadLinkInstall": "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.7/PartyIcons.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.7/PartyIcons.zip"
   },
   {
     "Author": "Taurenkey (Puni.sh)",
@@ -121,7 +121,7 @@
     "Author": "daemitus, MidoriKami",
     "Name": "天书概率助手",
     "InternalName": "WondrousTailsSolver",
-    "AssemblyVersion": "3.2.2.6",
+    "AssemblyVersion": "3.2.2.7",
     "Description": "在天书界面实时显示 1 线、2 线、3 线概率，并提供重排后的平均参考。 This plugin prints the probability of getting a row in Wondrous Tails to the in-game display along with the average probability of what would happen if you shuffled.",
     "Punchline": "在天书界面实时显示连线概率。 Adds row probabilities to the Wondrous Tails display.",
     "ApplicableVersion": "any",
@@ -138,7 +138,7 @@
     "LoadPriority": 0,
     "IconUrl": "https://raw.githubusercontent.com/anmili2022/EzWondrousTails/main/res/icon.png",
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/packages/WondrousTailsSolver-3.2.2.6.zip",
-    "DownloadLinkUpdate": "https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/packages/WondrousTailsSolver-3.2.2.6.zip"
+    "DownloadLinkInstall": "https://github.com/anmili2022/EzWondrousTails/releases/download/v3.2.2.7/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/EzWondrousTails/releases/download/v3.2.2.7/latest.zip"
   }
 ]
