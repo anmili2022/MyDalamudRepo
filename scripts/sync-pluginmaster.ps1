@@ -345,13 +345,21 @@ function Get-ProjectVersion {
         [string] $ProjectPath
     )
 
-    [xml] $project = Get-RawContentWithFallback -Repo $Repo -PreferredRef $PreferredRef -Path $ProjectPath
+    $projectXml = Get-RawContentWithFallback -Repo $Repo -PreferredRef $PreferredRef -Path $ProjectPath
+    $projectXml = $projectXml.TrimStart([char]0xFEFF, [char]0x200B, [char]0x0000)
+    $project = New-Object System.Xml.XmlDocument
+    $project.LoadXml($projectXml)
 
     foreach ($propertyGroup in @($project.Project.PropertyGroup)) {
         foreach ($field in @("AssemblyVersion", "Version", "FileVersion")) {
-            $value = $propertyGroup.$field | Select-Object -First 1
+            $node = $propertyGroup.SelectSingleNode($field)
+            if ($null -eq $node) {
+                continue
+            }
+
+            $value = [string]$node.InnerText
             if (-not [string]::IsNullOrWhiteSpace($value)) {
-                return [string]$value
+                return $value
             }
         }
     }
@@ -492,21 +500,27 @@ function Read-PluginmasterEntries {
 
     $entries = New-Object System.Collections.Generic.List[object]
     if (-not (Test-Path $Path)) {
-        return $entries
+        return ,$entries
     }
 
     try {
         $content = Get-Content -Path $Path -Raw -Encoding UTF8
-        $parsed = @($content | ConvertFrom-Json)
-        foreach ($item in $parsed) {
-            $entries.Add((ConvertTo-PlainData -InputObject $item))
+        $parsed = $content | ConvertFrom-Json
+
+        if ($parsed -is [System.Array]) {
+            foreach ($item in $parsed) {
+                $null = $entries.Add($item)
+            }
+        }
+        elseif ($null -ne $parsed) {
+            $null = $entries.Add($parsed)
         }
     }
     catch {
         Write-Warning "Existing pluginmaster.json is invalid; rebuilding it from tracked releases."
     }
 
-    return $entries
+    return ,$entries
 }
 
 function Write-Utf8NoBomFile {
