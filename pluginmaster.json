@@ -67,7 +67,7 @@
     "Author": "wozaiha",
     "Name": "DalamudACT",
     "InternalName": "DalamudACT",
-    "AssemblyVersion": "0.15.2.7",
+    "AssemblyVersion": "0.15.2.8",
     "Description": "一个基于本地 ACTX 风格口径的 Dalamud 战斗统计插件，直接在游戏内显示队伍 DPS、HPS、承伤、概览和战斗历史，不依赖外部网页悬浮窗。 Local ACTX-style combat meter for Dalamud. Displays party DPS, HPS, damage taken, overview summaries, and encounter history directly in game without relying on an external web overlay.",
     "Punchline": "在游戏内直接查看 ACTX 风格战斗统计。 Local ACTX-style combat stats directly inside the game.",
     "ApplicableVersion": "any",
