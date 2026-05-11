@@ -1,4 +1,4 @@
-﻿﻿﻿# MyDalamudRepo 更新速查
+﻿# MyDalamudRepo 更新速查
 
 这个仓库提供 Dalamud 插件订阅源：
 

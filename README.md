@@ -4,6 +4,8 @@
 
 `https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginmaster.json`
 
+如果你只想快速更新，先看 `UPDATE.md`；这里保留完整说明和防乱码细节。
+
 ## 当前维护的插件
 
 当前 `pluginmaster.json` 维护这些插件：
@@ -68,23 +70,13 @@ git diff --stat
 建议用 Python 检查，避免 PowerShell 编码干扰：
 
 ```powershell
-@'
-import json
-from pathlib import Path
-
-p = Path(r'E:\git\MyDalamudRepo\pluginmaster.json')
-obj = json.loads(p.read_text(encoding='utf-8'))
-
-for item in obj:
-    if item.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver'):
-        print(item['InternalName'], item['AssemblyVersion'])
-'@ | python -
+python --% -c "import json; from pathlib import Path; p=Path(r'E:\git\MyDalamudRepo\pluginmaster.json'); obj=json.loads(p.read_text(encoding='utf-8')); print('\n'.join('{} {}'.format(i.get('InternalName'), i.get('AssemblyVersion')) for i in obj if i.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver')))"
 ```
 
 ## 5. 提交并推送
 
 ```powershell
-git add -- pluginmaster.json scripts/sync-pluginmaster.ps1 README.md
+git add -- pluginmaster.json scripts/sync-pluginmaster.ps1 README.md UPDATE.md
 git commit -m "chore: sync pluginmaster to latest releases"
 git push origin main
 ```
@@ -110,7 +102,7 @@ $env:GITHUB_TOKEN = gh auth token
 再重新提交推送：
 
 ```powershell
-git add -- pluginmaster.json scripts/sync-pluginmaster.ps1 README.md
+git add -- pluginmaster.json scripts/sync-pluginmaster.ps1 README.md UPDATE.md
 git commit -m "chore: sync pluginmaster to latest releases"
 git push origin main
 ```
@@ -140,18 +132,7 @@ PowerShell 控制台显示乱码，不一定代表文件真的坏了。
 更稳的方式是用 Python 按 UTF-8 读取：
 
 ```powershell
-@'
-import json
-from pathlib import Path
-
-p = Path(r'E:\git\MyDalamudRepo\pluginmaster.json')
-obj = json.loads(p.read_text(encoding='utf-8'))
-
-for item in obj:
-    if item.get('InternalName') == 'DalamudACT':
-        print(item['Description'])
-        print(item['Punchline'])
-'@ | python -
+python --% -c "import json; from pathlib import Path; p=Path(r'E:\git\MyDalamudRepo\pluginmaster.json'); obj=json.loads(p.read_text(encoding='utf-8')); print('\n'.join('{}\n{}'.format(i['Description'], i['Punchline']) for i in obj if i.get('InternalName') == 'DalamudACT'))"
 ```
 
 ## 3. 优先让脚本生成，不手改 `pluginmaster.json`
@@ -182,18 +163,7 @@ $url = 'https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginma
 如果要看关键版本号是否生效，也建议用 Python 从远端读：
 
 ```powershell
-@'
-import json
-import urllib.request
-
-url = 'https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginmaster.json'
-text = urllib.request.urlopen(url).read().decode('utf-8')
-obj = json.loads(text)
-
-for item in obj:
-    if item.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver'):
-        print(item['InternalName'], item['AssemblyVersion'])
-'@ | python -
+python --% -c "import json, urllib.request; url='https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginmaster.json'; text=urllib.request.urlopen(url).read().decode('utf-8'); obj=json.loads(text); print('\n'.join('{} {}'.format(i.get('InternalName'), i.get('AssemblyVersion')) for i in obj if i.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver')))"
 ```
 
 ---
@@ -232,7 +202,7 @@ $env:GITHUB_TOKEN = gh auth token
 .\scripts\sync-pluginmaster.ps1
 git status --short --untracked-files=all
 git diff --stat
-git add -- pluginmaster.json scripts/sync-pluginmaster.ps1 README.md
+git add -- pluginmaster.json scripts/sync-pluginmaster.ps1 README.md UPDATE.md
 git commit -m "chore: sync pluginmaster to latest releases"
 git push origin main
 ```
