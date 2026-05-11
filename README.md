@@ -19,6 +19,25 @@
 
 ---
 
+## 自动同步说明
+
+对于有上游 Release 的插件，这个仓库已经接了 GitHub Actions 自动同步：
+
+- 工作流名称：`Sync Pluginmaster`
+- 手动触发：仓库 `Actions` 页面里的 `workflow_dispatch`
+- 定时触发：**每 6 小时** 自动检查一次
+- 工作流文件：`/.github/workflows/sync-pluginmaster.yml`
+- 实际同步脚本：`/scripts/sync-pluginmaster.ps1`
+
+如果只是普通版本更新，优先让工作流自动跑；下面的流程主要用于：
+
+- 本地手动同步
+- 修脚本后重新生成
+- 处理远端冲突
+- 处理没有上游 Release 的插件
+
+---
+
 # 下次更新的最快流程
 
 目标：

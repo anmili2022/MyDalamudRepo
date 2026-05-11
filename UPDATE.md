@@ -17,6 +17,19 @@
 
 ---
 
+## 自动同步
+
+这个仓库会通过 GitHub Actions 的 `Sync Pluginmaster` 定时同步：
+
+- 每 6 小时自动检查一次
+- 也可以在 `Actions` 页面手动触发
+- 工作流文件：`/.github/workflows/sync-pluginmaster.yml`
+- 同步脚本：`/scripts/sync-pluginmaster.ps1`
+
+普通更新优先让自动同步跑；如果要手动处理，就照下面流程来。
+
+---
+
 ## 最快更新流程
 
 ### 1. 进入仓库并对齐远端
