@@ -1,4 +1,7 @@
 ﻿Set-StrictMode -Version Latest
+# 同步 pluginmaster.json 的主脚本。
+# 以后新增或修改插件，优先只改下面的 $trackedPlugins 配置区。
+# 写回时会统一按 InternalName 排序，尽量减少无意义 diff。
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -13,7 +16,9 @@ if ($env:GITHUB_TOKEN) {
     $githubHeaders["Authorization"] = "Bearer $($env:GITHUB_TOKEN)"
 }
 
+# 这里只负责声明“要同步哪些插件”，以及每个插件怎么取 manifest / 版本号 / zip。
 $trackedPlugins = @(
+    # releaseAssetJson：manifest 和 zip 都来自 Release。
     @{
         Repo = "anmili2022/StarlightBreaker"
         InternalName = "StarlightBreaker"
@@ -26,6 +31,7 @@ $trackedPlugins = @(
             Description = "关闭屏蔽词过滤，并特殊显示聊天频道或招募板发出的屏蔽词。 Disable word-filter blocking and specially highlight filtered words from chat channels or the Party Finder."
         }
     },
+    # repoYaml：仓库里放 YAML manifest，版本号从 csproj 读取，zip 仍从 Release 取。
     @{
         Repo = "anmili2022/PluginDockStandalone"
         InternalName = "PluginDockStandalone"
@@ -41,6 +47,7 @@ $trackedPlugins = @(
             Description = "把常用 Dalamud 插件的主界面和设置入口收纳到一个可折叠的悬浮图标栏里，并提供可配置布局与快捷访问。 Collect common Dalamud plugin entry points into a collapsible floating icon dock with configurable layout and quick access."
         }
     },
+    # repoJson：仓库里放 JSON manifest，版本号从 csproj 读取，zip 仍从 Release 取。
     @{
         Repo = "anmili2022/SaucyCN"
         InternalName = "Saucy"
@@ -54,6 +61,7 @@ $trackedPlugins = @(
             Description = "自动化处理部分金碟小游戏。 Automates certain Gold Saucer mini-games."
         }
     },
+    # repoJson：仓库里放 JSON manifest，版本号从 csproj 读取，zip 仍从 Release 取。
     @{
         Repo = "anmili2022/xivPartyIcons"
         InternalName = "PartyIcons"
@@ -68,6 +76,7 @@ $trackedPlugins = @(
             Description = "按当前内容调整玩家名牌显示，例如显示职业图标、自动分配的团队站位，或名字加职业图标。 Adjusts player nameplates based on current content, for example by showing job icons, automatically assigned raid positions, or names with job icons."
         }
     },
+    # releaseAssetJson：manifest 和 zip 都来自 Release。
     @{
         Repo = "anmili2022/EzWondrousTails"
         InternalName = "WondrousTailsSolver"
@@ -81,6 +90,7 @@ $trackedPlugins = @(
             Description = "在天书界面实时显示 1 线、2 线、3 线概率，并提供重排后的平均参考。 This plugin prints the probability of getting a row in Wondrous Tails to the in-game display along with the average probability of what would happen if you shuffled."
         }
     },
+    # repoJson：仓库里放 JSON manifest，版本号从 csproj 读取，zip 仍从 Release 取。
     @{
         Repo = "anmili2022/DalamudACT"
         InternalName = "DalamudACT"
@@ -96,6 +106,7 @@ $trackedPlugins = @(
     }
 )
 
+# 控制 pluginmaster.json 的字段顺序，减少每次更新时的 diff 噪音。
 $preferredFieldOrder = @(
     "Author",
     "Name",
@@ -126,6 +137,7 @@ $preferredFieldOrder = @(
     "ChangeLog"
 )
 
+# ------- 基础辅助函数 -------
 function Get-StatusCode {
     param(
         [Parameter(Mandatory = $true)]
@@ -189,6 +201,7 @@ function ConvertTo-PlainData {
     return $result
 }
 
+# ------- GitHub 访问 -------
 function Invoke-GitHubJsonApi {
     param(
         [Parameter(Mandatory = $true)]
@@ -342,6 +355,7 @@ function Get-RawContentWithFallback {
     throw "Unable to fetch '$Path' from $Repo using refs: $($refsTried -join ', ')."
 }
 
+# ------- manifest / 版本读取 -------
 function ConvertFrom-SimpleYamlManifest {
     param(
         [Parameter(Mandatory = $true)]
@@ -486,6 +500,7 @@ function Get-ReleaseManifest {
     }
 }
 
+# ------- pluginmaster 条目组装 -------
 function New-OrderedPluginEntry {
     param(
         [Parameter(Mandatory = $true)]
@@ -552,6 +567,7 @@ function New-PluginEntryFromRelease {
     return New-OrderedPluginEntry -Source $manifest
 }
 
+# ------- pluginmaster 读写 -------
 function Read-PluginmasterEntries {
     param(
         [Parameter(Mandatory = $true)]
@@ -583,6 +599,24 @@ function Read-PluginmasterEntries {
     return ,$entries
 }
 
+function Get-EntryIndexByInternalName {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IList] $Entries,
+
+        [Parameter(Mandatory = $true)]
+        [string] $InternalName
+    )
+
+    for ($i = 0; $i -lt $Entries.Count; $i++) {
+        if ($Entries[$i].InternalName -eq $InternalName) {
+            return $i
+        }
+    }
+
+    return -1
+}
+
 function Write-Utf8NoBomFile {
     param(
         [Parameter(Mandatory = $true)]
@@ -596,6 +630,23 @@ function Write-Utf8NoBomFile {
     [System.IO.File]::WriteAllText($Path, $Content, $encoding)
 }
 
+function Write-PluginmasterEntries {
+    param(
+        [Parameter(Mandatory = $true)]
+        [System.Collections.IEnumerable] $Entries,
+
+        [Parameter(Mandatory = $true)]
+        [string] $Path
+    )
+
+    $sortedEntries = @($Entries | Sort-Object -Property InternalName)
+    $json = $sortedEntries | ConvertTo-Json -Depth 20
+    $json = $json.TrimEnd() + [Environment]::NewLine
+
+    Write-Utf8NoBomFile -Path $Path -Content $json
+}
+
+# ------- 主同步流程 -------
 $entries = Read-PluginmasterEntries -Path $pluginMasterPath
 
 foreach ($plugin in $trackedPlugins) {
@@ -606,14 +657,7 @@ foreach ($plugin in $trackedPlugins) {
     }
 
     $entry = New-PluginEntryFromRelease -PluginConfig $plugin -Release $release
-    $currentIndex = -1
-
-    for ($i = 0; $i -lt $entries.Count; $i++) {
-        if ($entries[$i].InternalName -eq $plugin.InternalName) {
-            $currentIndex = $i
-            break
-        }
-    }
+    $currentIndex = Get-EntryIndexByInternalName -Entries $entries -InternalName $plugin.InternalName
 
     if ($currentIndex -ge 0) {
         $entries[$currentIndex] = $entry
@@ -625,8 +669,4 @@ foreach ($plugin in $trackedPlugins) {
     }
 }
 
-$sortedEntries = @($entries | Sort-Object -Property InternalName)
-$json = $sortedEntries | ConvertTo-Json -Depth 20
-$json = $json.TrimEnd() + [Environment]::NewLine
-
-Write-Utf8NoBomFile -Path $pluginMasterPath -Content $json
+Write-PluginmasterEntries -Entries $entries -Path $pluginMasterPath
