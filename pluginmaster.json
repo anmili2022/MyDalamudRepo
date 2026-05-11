@@ -1,146 +1,144 @@
 [
-    {
-        "Author":  "wozaiha",
-        "Name":  "DalamudACT",
-        "InternalName":  "DalamudACT",
-        "AssemblyVersion":  "0.15.2.9",
-        "Description":  "一个基于本地 ACTX 风格口径的 Dalamud 战斗统计插件，直接在游戏内显示队伍 DPS、HPS、承伤、概览和战斗历史，不依赖外部网页悬浮窗。 Local ACTX-style combat meter for Dalamud. Displays party DPS, HPS, damage taken, overview summaries, and encounter history directly in game without relying on an external web overlay.",
-        "Punchline":  "在游戏内直接查看 ACTX 风格战斗统计。 Local ACTX-style combat stats directly inside the game.",
-        "ApplicableVersion":  "any",
-        "RepoUrl":  "https://github.com/anmili2022/DalamudACT",
-        "Tags":  [
-                     "combat",
-                     "dps",
-                     "hps",
-                     "overlay",
-                     "history",
-                     "act"
-                 ],
-        "CategoryTags":  [
-                             "Combat",
-                             "DPS",
-                             "HPS",
-                             "Overlay",
-                             "History",
-                             "ACT"
-                         ],
-        "DalamudApiLevel":  15,
-        "IconUrl":  "https://github.com/anmili2022/DalamudACT/raw/master/DalamudACT/images/icon.png",
-        "ImageUrls":  [
-
-                      ],
-        "AcceptsFeedback":  true,
-        "DownloadLinkInstall":  "https://github.com/anmili2022/DalamudACT/releases/download/latest/DalamudACT.zip",
-        "DownloadLinkUpdate":  "https://github.com/anmili2022/DalamudACT/releases/download/latest/DalamudACT.zip"
-    },
-    {
-        "Author":  "Shiyuvi",
-        "Name":  "Plugin Dock Standalone",
-        "InternalName":  "PluginDockStandalone",
-        "AssemblyVersion":  "1.0.0.0",
-        "Description":  "把常用 Dalamud 插件的主界面和设置入口收纳到一个可折叠的悬浮图标栏里，并提供可配置布局与快捷访问。 Collect common Dalamud plugin entry points into a collapsible floating icon dock with configurable layout and quick access.",
-        "Punchline":  "把常用插件入口收纳成可折叠的悬浮图标栏。 Collect common plugin entry points into a collapsible floating icon dock.",
-        "ApplicableVersion":  "any",
-        "RepoUrl":  "https://github.com/anmili2022/PluginDockStandalone",
-        "Tags":  [
-                     "ui",
-                     "dock",
-                     "utility"
-                 ],
-        "CategoryTags":  [
-                             "ui",
-                             "utilities"
-                         ],
-        "DalamudApiLevel":  15,
-        "IconUrl":  "https://raw.githubusercontent.com/anmili2022/PluginDockStandalone/main/images/icon.png",
-        "AcceptsFeedback":  true,
-        "DownloadLinkInstall":  "https://github.com/anmili2022/PluginDockStandalone/releases/download/latest/latest.zip",
-        "DownloadLinkUpdate":  "https://github.com/anmili2022/PluginDockStandalone/releases/download/latest/latest.zip"
-    },
-    {
-        "Author":  "shdwp, Avaflow, abashby, nebel",
-        "Name":  "Party Icons",
-        "InternalName":  "PartyIcons",
-        "AssemblyVersion":  "1.2.3.8",
-        "Description":  "按当前内容调整玩家名牌显示，例如显示职业图标、自动分配的团队站位，或名字加职业图标。 Adjusts player nameplates based on current content, for example by showing job icons, automatically assigned raid positions, or names with job icons.",
-        "Punchline":  "用职业图标、团队站位等替换队友名字显示。 Replace names with job icons, raid role positions, and more.",
-        "ApplicableVersion":  "any",
-        "RepoUrl":  "https://github.com/anmili2022/xivPartyIcons",
-        "Tags":  [
-                     "UI"
-                 ],
-        "DalamudApiLevel":  15,
-        "LoadRequiredState":  0,
-        "LoadSync":  false,
-        "CanUnloadAsync":  false,
-        "LoadPriority":  0,
-        "IconUrl":  "https://raw.githubusercontent.com/anmili2022/xivPartyIcons/main/PartyIcons/Resources/icon.png",
-        "AcceptsFeedback":  true,
-        "DownloadLinkInstall":  "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.8/PartyIcons.zip",
-        "DownloadLinkUpdate":  "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.8/PartyIcons.zip"
-    },
-    {
-        "Author":  "Taurenkey (Puni.sh)",
-        "Name":  "Saucy",
-        "InternalName":  "Saucy",
-        "AssemblyVersion":  "1.4.2.12",
-        "Description":  "自动化处理部分金碟小游戏。 Automates certain Gold Saucer mini-games.",
-        "Punchline":  "当刷 MGP 太费劲时的自动化帮手。 When working for MGP is too much effort.",
-        "ApplicableVersion":  "any",
-        "RepoUrl":  "https://github.com/anmili2022/SaucyCN",
-        "Tags":  [
-                     "gold saucer",
-                     "mgp",
-                     "automation"
-                 ],
-        "DalamudApiLevel":  15,
-        "IconUrl":  "https://raw.githubusercontent.com/anmili2022/SaucyCN/main/Saucy/Icon.png",
-        "AcceptsFeedback":  true,
-        "DownloadLinkInstall":  "https://github.com/anmili2022/SaucyCN/releases/download/v1.4.2.12/SaucyCN.zip",
-        "DownloadLinkUpdate":  "https://github.com/anmili2022/SaucyCN/releases/download/v1.4.2.12/SaucyCN.zip",
-        "ChangeLog":  "- Fix Triple Triad challenge not auto-accepting."
-    },
-    {
-        "Author":  "Loskh",
-        "Name":  "StarlightBreaker",
-        "InternalName":  "StarlightBreaker",
-        "AssemblyVersion":  "2.15.1.0",
-        "Description":  "关闭屏蔽词过滤，并特殊显示聊天频道或招募板发出的屏蔽词。 Disable word-filter blocking and specially highlight filtered words from chat channels or the Party Finder.",
-        "Punchline":  "关闭屏蔽词过滤，并高亮聊天和招募板里的屏蔽词。 Disable word-filter blocking and highlight filtered words in chat and Party Finder.",
-        "ApplicableVersion":  "any",
-        "RepoUrl":  "https://github.com/anmili2022/StarlightBreaker",
-        "DalamudApiLevel":  15,
-        "LoadRequiredState":  0,
-        "LoadSync":  false,
-        "CanUnloadAsync":  false,
-        "LoadPriority":  0,
-        "IconUrl":  "https://raw.githubusercontent.com/anmili2022/StarlightBreaker/main/StarlightBreaker.Dalamud/icon.png",
-        "AcceptsFeedback":  true,
-        "DownloadLinkInstall":  "https://github.com/anmili2022/StarlightBreaker/releases/download/v2.15.1/StarlightBreaker-v2.15.1.zip",
-        "DownloadLinkUpdate":  "https://github.com/anmili2022/StarlightBreaker/releases/download/v2.15.1/StarlightBreaker-v2.15.1.zip"
-    },
-    {
-        "Author":  "daemitus, MidoriKami",
-        "Name":  "天书概率助手",
-        "InternalName":  "WondrousTailsSolver",
-        "AssemblyVersion":  "3.2.2.11",
-        "Description":  "在天书界面实时显示 1 线、2 线、3 线概率，并提供重排后的平均参考。 This plugin prints the probability of getting a row in Wondrous Tails to the in-game display along with the average probability of what would happen if you shuffled.",
-        "Punchline":  "在天书界面实时显示连线概率。 Adds row probabilities to the Wondrous Tails display.",
-        "ApplicableVersion":  "any",
-        "RepoUrl":  "https://github.com/anmili2022/EzWondrousTails",
-        "Tags":  [
-                     "wondrous-tails",
-                     "probability",
-                     "utility"
-                 ],
-        "DalamudApiLevel":  15,
-        "LoadRequiredState":  0,
-        "LoadSync":  false,
-        "CanUnloadAsync":  false,
-        "LoadPriority":  0,
-        "IconUrl":  "https://raw.githubusercontent.com/anmili2022/EzWondrousTails/main/res/icon.png",
-        "AcceptsFeedback":  true,
-        "DownloadLinkInstall":  "https://github.com/anmili2022/EzWondrousTails/releases/download/v3.2.2.11/latest.zip",
-        "DownloadLinkUpdate":  "https://github.com/anmili2022/EzWondrousTails/releases/download/v3.2.2.11/latest.zip"
-    }
+  {
+    "Author": "wozaiha",
+    "Name": "DalamudACT",
+    "InternalName": "DalamudACT",
+    "AssemblyVersion": "0.15.2.9",
+    "Description": "一个基于本地 ACTX 风格口径的 Dalamud 战斗统计插件，直接在游戏内显示队伍 DPS、HPS、承伤、概览和战斗历史，不依赖外部网页悬浮窗。 Local ACTX-style combat meter for Dalamud. Displays party DPS, HPS, damage taken, overview summaries, and encounter history directly in game without relying on an external web overlay.",
+    "Punchline": "在游戏内直接查看 ACTX 风格战斗统计。 Local ACTX-style combat stats directly inside the game.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/DalamudACT",
+    "Tags": [
+      "combat",
+      "dps",
+      "hps",
+      "overlay",
+      "history",
+      "act"
+    ],
+    "CategoryTags": [
+      "Combat",
+      "DPS",
+      "HPS",
+      "Overlay",
+      "History",
+      "ACT"
+    ],
+    "DalamudApiLevel": 15,
+    "IconUrl": "https://github.com/anmili2022/DalamudACT/raw/master/DalamudACT/images/icon.png",
+    "ImageUrls": [],
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/DalamudACT/releases/download/latest/DalamudACT.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/DalamudACT/releases/download/latest/DalamudACT.zip"
+  },
+  {
+    "Author": "Shiyuvi",
+    "Name": "Plugin Dock Standalone",
+    "InternalName": "PluginDockStandalone",
+    "AssemblyVersion": "1.0.0.0",
+    "Description": "把常用 Dalamud 插件的主界面和设置入口收纳到一个可折叠的悬浮图标栏里，并提供可配置布局与快捷访问。 Collect common Dalamud plugin entry points into a collapsible floating icon dock with configurable layout and quick access.",
+    "Punchline": "把常用插件入口收纳成可折叠的悬浮图标栏。 Collect common plugin entry points into a collapsible floating icon dock.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/PluginDockStandalone",
+    "Tags": [
+      "ui",
+      "dock",
+      "utility"
+    ],
+    "CategoryTags": [
+      "ui",
+      "utilities"
+    ],
+    "DalamudApiLevel": 15,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/PluginDockStandalone/main/images/icon.png",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/PluginDockStandalone/releases/download/latest/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/PluginDockStandalone/releases/download/latest/latest.zip"
+  },
+  {
+    "Author": "shdwp, Avaflow, abashby, nebel",
+    "Name": "Party Icons",
+    "InternalName": "PartyIcons",
+    "AssemblyVersion": "1.2.3.8",
+    "Description": "按当前内容调整玩家名牌显示，例如显示职业图标、自动分配的团队站位，或名字加职业图标。 Adjusts player nameplates based on current content, for example by showing job icons, automatically assigned raid positions, or names with job icons.",
+    "Punchline": "用职业图标、团队站位等替换队友名字显示。 Replace names with job icons, raid role positions, and more.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/xivPartyIcons",
+    "Tags": [
+      "UI"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/xivPartyIcons/main/PartyIcons/Resources/icon.png",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.8/PartyIcons.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/xivPartyIcons/releases/download/1.2.3.8/PartyIcons.zip"
+  },
+  {
+    "Author": "Taurenkey (Puni.sh)",
+    "Name": "Saucy",
+    "InternalName": "Saucy",
+    "AssemblyVersion": "1.4.2.12",
+    "Description": "自动化处理部分金碟小游戏。 Automates certain Gold Saucer mini-games.",
+    "Punchline": "当刷 MGP 太费劲时的自动化帮手。 When working for MGP is too much effort.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/SaucyCN",
+    "Tags": [
+      "gold saucer",
+      "mgp",
+      "automation"
+    ],
+    "DalamudApiLevel": 15,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/SaucyCN/main/Saucy/Icon.png",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/SaucyCN/releases/download/v1.4.2.12/SaucyCN.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/SaucyCN/releases/download/v1.4.2.12/SaucyCN.zip",
+    "ChangeLog": "- Fix Triple Triad challenge not auto-accepting."
+  },
+  {
+    "Author": "Loskh",
+    "Name": "StarlightBreaker",
+    "InternalName": "StarlightBreaker",
+    "AssemblyVersion": "2.15.1.0",
+    "Description": "关闭屏蔽词过滤，并特殊显示聊天频道或招募板发出的屏蔽词。 Disable word-filter blocking and specially highlight filtered words from chat channels or the Party Finder.",
+    "Punchline": "关闭屏蔽词过滤，并高亮聊天和招募板里的屏蔽词。 Disable word-filter blocking and highlight filtered words in chat and Party Finder.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/StarlightBreaker",
+    "DalamudApiLevel": 15,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/StarlightBreaker/main/StarlightBreaker.Dalamud/icon.png",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/StarlightBreaker/releases/download/v2.15.1/StarlightBreaker-v2.15.1.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/StarlightBreaker/releases/download/v2.15.1/StarlightBreaker-v2.15.1.zip"
+  },
+  {
+    "Author": "daemitus, MidoriKami",
+    "Name": "天书概率助手",
+    "InternalName": "WondrousTailsSolver",
+    "AssemblyVersion": "3.2.2.11",
+    "Description": "在天书界面实时显示 1 线、2 线、3 线概率，并提供重排后的平均参考。 This plugin prints the probability of getting a row in Wondrous Tails to the in-game display along with the average probability of what would happen if you shuffled.",
+    "Punchline": "在天书界面实时显示连线概率。 Adds row probabilities to the Wondrous Tails display.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/anmili2022/EzWondrousTails",
+    "Tags": [
+      "wondrous-tails",
+      "probability",
+      "utility"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadRequiredState": 0,
+    "LoadSync": false,
+    "CanUnloadAsync": false,
+    "LoadPriority": 0,
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/EzWondrousTails/main/res/icon.png",
+    "AcceptsFeedback": true,
+    "DownloadLinkInstall": "https://github.com/anmili2022/EzWondrousTails/releases/download/v3.2.2.11/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/EzWondrousTails/releases/download/v3.2.2.11/latest.zip"
+  }
 ]
