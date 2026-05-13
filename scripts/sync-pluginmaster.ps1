@@ -474,6 +474,7 @@ function Get-ReleaseManifest {
         }
         "repoJson" {
             $json = Get-RawContentWithFallback -Repo $PluginConfig.Repo -PreferredRef $Release.tag_name -Path $PluginConfig.ManifestPath
+            $json = $json.TrimStart([char]0xFEFF, [char]0x200B, [char]0x0000)
             return ConvertTo-PlainData -InputObject ($json | ConvertFrom-Json)
         }
         "repoYaml" {
