@@ -569,6 +569,32 @@ function New-PluginEntryFromRelease {
 }
 
 # ------- pluginmaster 读写 -------
+function Get-EntryInternalName {
+    param(
+        [Parameter(Mandatory = $true)]
+        $Entry
+    )
+
+    if ($null -eq $Entry) {
+        return $null
+    }
+
+    if ($Entry -is [System.Collections.IDictionary]) {
+        if ($Entry.Contains("InternalName")) {
+            return [string]$Entry["InternalName"]
+        }
+
+        return $null
+    }
+
+    $property = $Entry.PSObject.Properties["InternalName"]
+    if ($null -eq $property -or $null -eq $property.Value) {
+        return $null
+    }
+
+    return [string]$property.Value
+}
+
 function Read-PluginmasterEntries {
     param(
         [Parameter(Mandatory = $true)]
@@ -586,11 +612,21 @@ function Read-PluginmasterEntries {
 
         if ($parsed -is [System.Array]) {
             foreach ($item in $parsed) {
-                $null = $entries.Add($item)
+                $plainItem = ConvertTo-PlainData -InputObject $item
+                if ($plainItem -is [System.Collections.IDictionary]) {
+                    $plainItem = New-OrderedPluginEntry -Source $plainItem
+                }
+
+                $null = $entries.Add($plainItem)
             }
         }
         elseif ($null -ne $parsed) {
-            $null = $entries.Add($parsed)
+            $plainItem = ConvertTo-PlainData -InputObject $parsed
+            if ($plainItem -is [System.Collections.IDictionary]) {
+                $plainItem = New-OrderedPluginEntry -Source $plainItem
+            }
+
+            $null = $entries.Add($plainItem)
         }
     }
     catch {
@@ -610,7 +646,7 @@ function Get-EntryIndexByInternalName {
     )
 
     for ($i = 0; $i -lt $Entries.Count; $i++) {
-        if ($Entries[$i].InternalName -eq $InternalName) {
+        if ((Get-EntryInternalName -Entry $Entries[$i]) -eq $InternalName) {
             return $i
         }
     }
@@ -631,6 +667,71 @@ function Write-Utf8NoBomFile {
     [System.IO.File]::WriteAllText($Path, $Content, $encoding)
 }
 
+function ConvertTo-StableJson {
+    param(
+        [Parameter(Mandatory = $true)]
+        $InputObject,
+
+        [int] $IndentLevel = 0
+    )
+
+    if ($null -eq $InputObject) {
+        return "null"
+    }
+
+    if ($InputObject -is [string] -or
+        $InputObject -is [bool] -or
+        $InputObject -is [int] -or
+        $InputObject -is [long] -or
+        $InputObject -is [double] -or
+        $InputObject -is [decimal]) {
+        return ($InputObject | ConvertTo-Json -Compress)
+    }
+
+    if ($InputObject -is [System.Collections.IDictionary]) {
+        $keys = @($InputObject.Keys)
+        if ($keys.Count -eq 0) {
+            return "{}"
+        }
+
+        $childIndent = "  " * ($IndentLevel + 1)
+        $lines = New-Object System.Collections.Generic.List[string]
+        $lines.Add("{")
+
+        for ($i = 0; $i -lt $keys.Count; $i++) {
+            $key = [string]$keys[$i]
+            $valueJson = ConvertTo-StableJson -InputObject $InputObject[$key] -IndentLevel ($IndentLevel + 1)
+            $suffix = if ($i -lt $keys.Count - 1) { "," } else { "" }
+            $lines.Add("$childIndent$($key | ConvertTo-Json -Compress): $valueJson$suffix")
+        }
+
+        $lines.Add(("  " * $IndentLevel) + "}")
+        return ($lines -join "`n")
+    }
+
+    if ($InputObject -is [System.Collections.IEnumerable] -and -not ($InputObject -is [string])) {
+        $items = @($InputObject)
+        if ($items.Count -eq 0) {
+            return "[]"
+        }
+
+        $childIndent = "  " * ($IndentLevel + 1)
+        $lines = New-Object System.Collections.Generic.List[string]
+        $lines.Add("[")
+
+        for ($i = 0; $i -lt $items.Count; $i++) {
+            $itemJson = ConvertTo-StableJson -InputObject $items[$i] -IndentLevel ($IndentLevel + 1)
+            $suffix = if ($i -lt $items.Count - 1) { "," } else { "" }
+            $lines.Add("$childIndent$itemJson$suffix")
+        }
+
+        $lines.Add(("  " * $IndentLevel) + "]")
+        return ($lines -join "`n")
+    }
+
+    return ((ConvertTo-PlainData -InputObject $InputObject) | ConvertTo-Json -Compress)
+}
+
 function Write-PluginmasterEntries {
     param(
         [Parameter(Mandatory = $true)]
@@ -640,9 +741,23 @@ function Write-PluginmasterEntries {
         [string] $Path
     )
 
-    $sortedEntries = @($Entries | Sort-Object -Property InternalName)
-    $json = $sortedEntries | ConvertTo-Json -Depth 20
-    $json = $json.TrimEnd() + [Environment]::NewLine
+    $normalizedEntries = foreach ($entry in $Entries) {
+        $plainEntry = ConvertTo-PlainData -InputObject $entry
+        if ($plainEntry -is [System.Collections.IDictionary]) {
+            New-OrderedPluginEntry -Source $plainEntry
+            continue
+        }
+
+        $plainEntry
+    }
+
+    $sortedEntries = @(
+        $normalizedEntries |
+        Sort-Object -Property @{ Expression = { Get-EntryInternalName -Entry $_ } }
+    )
+
+    $json = ConvertTo-StableJson -InputObject $sortedEntries
+    $json = $json.TrimEnd() + "`n"
 
     Write-Utf8NoBomFile -Path $Path -Content $json
 }
