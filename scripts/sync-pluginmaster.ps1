@@ -92,6 +92,20 @@ $trackedPlugins = @(
     },
     # repoJson：仓库里放 JSON manifest，版本号从 csproj 读取，zip 仍从 Release 取。
     @{
+        Repo = "anmili2022/RouletteRecorder.Dalamud"
+        InternalName = "日随伴侣卫月版"
+        ManifestKind = "repoJson"
+        ManifestPath = "RouletteRecorder.Dalamud/RouletteRecorder.Dalamud.json"
+        VersionPath = "RouletteRecorder.Dalamud/RouletteRecorder.Dalamud.csproj"
+        ZipAssetPattern = "latest.zip"
+        Overrides = @{
+            Name = "日随伴侣"
+            Punchline = "自动记录每日随机任务，包括指导者随机任务。 Auto record your daily roulettes including mentor roulettes."
+            Description = "帮助你记录每日随机任务、导出报告，并实时同步到 DungeonLogger。 Help you to record your daily roulettes, export reports, and sync with DungeonLogger in real time."
+        }
+    },
+    # repoJson：仓库里放 JSON manifest，版本号从 csproj 读取，zip 仍从 Release 取。
+    @{
         Repo = "anmili2022/DalamudACT"
         InternalName = "DalamudACT"
         ManifestKind = "repoJson"

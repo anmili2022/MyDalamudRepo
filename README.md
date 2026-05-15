@@ -16,6 +16,7 @@
 4. `Saucy`
 5. `StarlightBreaker`
 6. `WondrousTailsSolver`
+7. `日随伴侣卫月版`
 
 ---
 
@@ -89,7 +90,7 @@ git diff --stat
 建议用 Python 检查，避免 PowerShell 编码干扰：
 
 ```powershell
-python --% -c "import json; from pathlib import Path; p=Path(r'E:\git\MyDalamudRepo\pluginmaster.json'); obj=json.loads(p.read_text(encoding='utf-8')); print('\n'.join('{} {}'.format(i.get('InternalName'), i.get('AssemblyVersion')) for i in obj if i.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver')))"
+python --% -c "import json; from pathlib import Path; p=Path(r'E:\git\MyDalamudRepo\pluginmaster.json'); obj=json.loads(p.read_text(encoding='utf-8')); print('\n'.join('{} {}'.format(i.get('InternalName'), i.get('AssemblyVersion')) for i in obj if i.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver', '日随伴侣卫月版')))"
 ```
 
 ## 5. 提交并推送
@@ -182,7 +183,7 @@ $url = 'https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginma
 如果要看关键版本号是否生效，也建议用 Python 从远端读：
 
 ```powershell
-python --% -c "import json, urllib.request; url='https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginmaster.json'; text=urllib.request.urlopen(url).read().decode('utf-8'); obj=json.loads(text); print('\n'.join('{} {}'.format(i.get('InternalName'), i.get('AssemblyVersion')) for i in obj if i.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver')))"
+python --% -c "import json, urllib.request; url='https://raw.githubusercontent.com/anmili2022/MyDalamudRepo/main/pluginmaster.json'; text=urllib.request.urlopen(url).read().decode('utf-8'); obj=json.loads(text); print('\n'.join('{} {}'.format(i.get('InternalName'), i.get('AssemblyVersion')) for i in obj if i.get('InternalName') in ('DalamudACT', 'WondrousTailsSolver', '日随伴侣卫月版')))"
 ```
 
 ---
