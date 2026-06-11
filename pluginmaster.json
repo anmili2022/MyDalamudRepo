@@ -1,11 +1,12 @@
 [
   {
-    "Author": "wozaiha",
-    "Name": "DalamudACT",
+    "Author": "Shiyuvi, Anmi",
+    "Name": "DPS统计",
     "InternalName": "DalamudACT",
-    "AssemblyVersion": "0.15.2.13",
-    "Description": "涓€涓熀浜庢湰鍦?ACTX 椋庢牸鍙ｅ緞鐨?Dalamud 鎴樻枟缁熻鎻掍欢锛岀洿鎺ュ湪娓告垙鍐呮樉绀洪槦浼?DPS銆丠PS銆佹壙浼ゃ€佹瑙堝拰鎴樻枟鍘嗗彶锛屼笉渚濊禆澶栭儴缃戦〉鎮诞绐椼€?Local ACTX-style combat meter for Dalamud. Displays party DPS, HPS, damage taken, overview summaries, and encounter history directly in game without relying on an external web overlay.",
-    "Punchline": "鍦ㄦ父鎴忓唴鐩存帴鏌ョ湅 ACTX 椋庢牸鎴樻枟缁熻銆?Local ACTX-style combat stats directly inside the game.",
+    "AssemblyVersion": "0.15.2.68",
+    "TestingAssemblyVersion": "0.15.2.68",
+    "Description": "一个基于本地 ACTX 风格统计口径的 Dalamud 战斗统计插件，直接在游戏内显示队伍 DPS、HPS、承伤、概览和战斗历史，不依赖外部网页面板。支持宏命令 /dps settings、/dps dps、/dps skills 快速开关设置面板、DPS统计悬浮窗和技能监控悬浮窗。\nLocal ACTX-style combat meter for Dalamud. Displays party DPS, HPS, damage taken, overview summaries, and encounter history directly in game without relying on an external web overlay. Macro commands are available: /dps settings, /dps dps, /dps skills.",
+    "Punchline": "在游戏里直接查看队伍战斗统计。\nLocal ACTX-style combat stats directly inside the game.",
     "ApplicableVersion": "any",
     "RepoUrl": "https://github.com/anmili2022/DalamudACT",
     "Tags": [
@@ -25,11 +26,16 @@
       "ACT"
     ],
     "DalamudApiLevel": 15,
-    "IconUrl": "https://github.com/anmili2022/DalamudACT/raw/master/DalamudACT/images/icon.png",
+    "IconUrl": "https://raw.githubusercontent.com/anmili2022/DalamudACT/main/DalamudACT/images/icon.png",
     "ImageUrls": [],
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://github.com/anmili2022/DalamudACT/releases/download/latest/DalamudACT.zip",
-    "DownloadLinkUpdate": "https://github.com/anmili2022/DalamudACT/releases/download/latest/DalamudACT.zip"
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadLinkInstall": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.68/DalamudACT.zip",
+    "DownloadLinkTesting": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.68/DalamudACT.zip",
+    "DownloadLinkUpdate": "https://github.com/anmili2022/DalamudACT/releases/download/0.15.2.68/DalamudACT.zip",
+    "DownloadCount": 0,
+    "LastUpdated": "1781170004"
   },
   {
     "Author": "shdwp, Avaflow, abashby, nebel",
